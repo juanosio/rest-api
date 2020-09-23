@@ -1,5 +1,7 @@
 require("./config/config.js");
 const express = require("express");
+const mongoose = require('mongoose');
+
 const app = express();
 const bodyParser = require("body-parser");
 
@@ -8,35 +10,18 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
-app.get("/usuarios", function (req, res) {
-	res.json({
-		nombre: "Juan",
-		edad: 22,
-	});
-});
+//Rutas de usuarios
+app.use(require("./routes/userRoutes.js"));
 
-app.post("/usuarios", function (req, res) {
-	const data = req.body;
+//DB conection
+mongoose.connect('mongodb://localhost:27017/coffe', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+}, (error, res) => {
 
-	console.log(data);
-	if (data.nombre === undefined) {
-		res.status(400).json({
-			ok: false,
-			mensaje: "El parametro nombre es obligatorio",
-		});
-	} else {
-		res.json({ persona: data });
-	}
-});
+	if(error) throw new Error("Ocurrio un problema")
 
-app.put("/usuarios/:id", function (req, res) {
-	const id = req.params.id;
-	res.json("El usuario " + id + " a sido actualizado");
-});
-
-app.delete("/usuarios/:id", function (req, res) {
-	const id = req.params.id;
-	res.json("El usuario " + id + " a sido eliminado");
+	console.log("Conexión establecida")
 });
 
 app.listen(process.env.PORT, () =>
