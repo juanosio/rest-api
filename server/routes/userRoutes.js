@@ -1,5 +1,7 @@
 const express = require("express");
 
+const bcrypt = require('bcrypt');
+
 const app = express()
 
 const User = require("../models/User.js");
@@ -18,10 +20,11 @@ app.post("/usuarios", function (req, res) {
 		password, 
 		role } = req.body;
 
+
 	let user = new User({
 		name, 
 		email,
-		password,
+		password: bcrypt.hashSync(password, 10),
 		role
 	})
 
@@ -38,16 +41,6 @@ app.post("/usuarios", function (req, res) {
 			usuario: userDB
 		})
 	})
-
-	// console.log(data);
-	// if (data.nombre === undefined) {
-	// 	res.status(400).json({
-	// 		ok: false,
-	// 		mensaje: "El parametro nombre es obligatorio",
-	// 	});
-	// } else {
-	// 	res.json({ persona: data });
-	// }
 });
 
 app.put("/usuarios/:id", function (req, res) {
