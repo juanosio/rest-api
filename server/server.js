@@ -15,6 +15,7 @@ app.use(require("./routes/userRoutes.js"));
 
 //DB conection
 mongoose.connect('mongodb://localhost:27017/coffe', {
+	useCreateIndex: true,
   useNewUrlParser: true,
   useUnifiedTopology: true
 }, (error, res) => {

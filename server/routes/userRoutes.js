@@ -16,13 +16,13 @@ app.post("/usuarios", function (req, res) {
 		name, 
 		email, 
 		password, 
-		rol } = req.body;
+		role } = req.body;
 
 	let user = new User({
 		name, 
 		email,
 		password,
-		rol
+		role
 	})
 
 	user.save((error, userDB) => {
