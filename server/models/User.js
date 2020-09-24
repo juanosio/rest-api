@@ -50,7 +50,7 @@ userSchema.methods.toJSON = function(){
 	return userObject;
 }
 
+//Validación de email unico
 userSchema.plugin(uniqueValidator, { message: '{PATH} ya está siendo utilizado'});
-
 
 module.exports = mongoose.model( "Usuario", userSchema)

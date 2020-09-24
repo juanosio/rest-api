@@ -17,7 +17,8 @@ app.use(require("./routes/userRoutes.js"));
 mongoose.connect('mongodb://localhost:27017/coffe', {
 	useCreateIndex: true,
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+  useFindAndModify: false
 }, (error, res) => {
 
 	if(error) throw new Error("Ocurrio un problema")
