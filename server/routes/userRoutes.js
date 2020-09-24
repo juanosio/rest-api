@@ -112,7 +112,7 @@ app.delete("/usuarios/:id", function (req, res) {
 	};
 
 	const state = { state: true }
-
+	
 	// Esto elimina un usuario de la base de datos
 	// User.findByIdAndRemove(id, (error, userDeleted) => {
 	User.findByIdAndUpdate(id, state, updateOptions, (error, userDeleted) => {
@@ -136,7 +136,12 @@ app.delete("/usuarios/:id", function (req, res) {
 			ok: true,
 			usuario: userDeleted
 		})
+
+
 	})
+
+	
+
 });
 
 module.exports = app
