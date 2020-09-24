@@ -30,13 +30,9 @@ app.get("/usuarios", function (req, res) {
 				length: conteo,
 				usuarios: users
 			});
-			})
-
-			
+			})	
 
 		})
-
-	
 });
 
 app.post("/usuarios", function (req, res) {
@@ -112,7 +108,7 @@ app.delete("/usuarios/:id", function (req, res) {
 	};
 
 	const state = { state: true }
-	
+
 	// Esto elimina un usuario de la base de datos
 	// User.findByIdAndRemove(id, (error, userDeleted) => {
 	User.findByIdAndUpdate(id, state, updateOptions, (error, userDeleted) => {
@@ -139,8 +135,6 @@ app.delete("/usuarios/:id", function (req, res) {
 
 
 	})
-
-	
 
 });
 

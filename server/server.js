@@ -16,14 +16,14 @@ app.use(require("./routes/userRoutes.js"));
 //DB conection
 mongoose.connect(process.env.URLDB, {
 	useCreateIndex: true,
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useFindAndModify: false
+  	useNewUrlParser: true,
+  	useUnifiedTopology: true,
+  	useFindAndModify: false
 }, (error, res) => {
 
 	if(error) throw new Error("Ocurrio un problema")
 
-	console.log("Conexión establecida")
+	console.log("Conexión establecida: " + process.env.URLDB)
 });
 
 app.listen(process.env.PORT, () =>
