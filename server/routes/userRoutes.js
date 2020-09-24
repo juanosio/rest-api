@@ -113,6 +113,8 @@ app.delete("/usuarios/:id", function (req, res) {
 
 	const state = { state: true }
 
+	// Esto elimina un usuario de la base de datos
+	// User.findByIdAndRemove(id, (error, userDeleted) => {
 	User.findByIdAndUpdate(id, state, updateOptions, (error, userDeleted) => {
 		if(error){
 			return res.status(400).json({
@@ -134,35 +136,7 @@ app.delete("/usuarios/:id", function (req, res) {
 			ok: true,
 			usuario: userDeleted
 		})
-
-
 	})
-
-	// Esto elimina un usuario de la base de datos
-	// User.findByIdAndRemove(id, (error, userDeleted) => {
-	// 	if(error){
-	// 		return res.status(400).json({
-	// 			ok: false,
-	// 			error
-	// 		})
-	// 	}
-
-	// 	if(!userDeleted) {
-	// 		return res.status(400).json({
-	// 			ok: false,
-	// 			error: {
-	// 				message: "Usuario no encontrado"
-	// 			}
-	// 		})
-	// 	}
-
-	// 	res.json({
-	// 		ok: true,
-	// 		usuario: userDeleted
-	// 	})
-	// })
-
-	// res.json("El usuario " + id + " a sido eliminado");
 });
 
 module.exports = app

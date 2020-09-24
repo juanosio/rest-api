@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 app.use(require("./routes/userRoutes.js"));
 
 //DB conection
-mongoose.connect(process.env.URLDB, {
+mongoose.connect('mongodb+srv://juanCoffeRestApi:26715734@cluster0.ln04s.mongodb.net/coffe-rest-api?retryWrites=true&w=majority', {
 	useCreateIndex: true,
   useNewUrlParser: true,
   useUnifiedTopology: true,
