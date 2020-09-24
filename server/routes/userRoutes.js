@@ -8,10 +8,35 @@ const app = express()
 const User = require("../models/User.js");
 
 app.get("/usuarios", function (req, res) {
-	res.json({
-		nombre: "Juan",
-		edad: 22,
-	});
+
+	let from = Number(req.query.desde) || 0;
+	let limit = Number(req.query.limite) || 5;
+
+
+	User.find({})
+	.limit(limit)
+	.skip(from)
+		.exec((error, users) => {
+			if(error){
+				return res.status(400).json({
+					ok: false,
+					error
+				})
+			}
+
+			User.count({}, (err, conteo) => {
+				res.json({
+				ok: true,
+				length: conteo,
+				usuarios: users
+			});
+			})
+
+			
+
+		})
+
+	
 });
 
 app.post("/usuarios", function (req, res) {
