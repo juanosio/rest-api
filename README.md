@@ -22,6 +22,12 @@ npm start
 
 De esta manera tendrás la api funcionando en el puerto 3000
 
+- Ya está funcionando en la web, le puedes hacer peticiones utilizando el siguiente url:
+
+```
+https://coffe-rest-api.herokuapp.com/
+```
+
 ---
 
 ⌨️ con ❤️ por [Juan Osio](https://twitter.com/juanbocode) 😊
