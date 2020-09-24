@@ -13,7 +13,7 @@ app.get("/usuarios", function (req, res) {
 	let limit = Number(req.query.limite) || 5;
 
 
-	User.find({})
+	User.find({ state: false }, "name email state google role img")
 	.limit(limit)
 	.skip(from)
 		.exec((error, users) => {
@@ -24,7 +24,7 @@ app.get("/usuarios", function (req, res) {
 				})
 			}
 
-			User.count({}, (err, conteo) => {
+			User.count({ state: false }, (err, conteo) => {
 				res.json({
 				ok: true,
 				length: conteo,
@@ -105,7 +105,64 @@ app.put("/usuarios/:id", function (req, res) {
 
 app.delete("/usuarios/:id", function (req, res) {
 	const id = req.params.id;
-	res.json("El usuario " + id + " a sido eliminado");
+	
+	const updateOptions = {
+		new: true,
+	  	context: 'query'
+	};
+
+	const state = { state: true }
+
+	User.findByIdAndUpdate(id, state, updateOptions, (error, userDeleted) => {
+		if(error){
+			return res.status(400).json({
+				ok: false,
+				error
+			})
+		}
+
+		if(!userDeleted) {
+			return res.status(400).json({
+				ok: false,
+				error: {
+					message: "Usuario no encontrado"
+				}
+			})
+		}
+
+		res.json({
+			ok: true,
+			usuario: userDeleted
+		})
+
+
+	})
+
+	// Esto elimina un usuario de la base de datos
+	// User.findByIdAndRemove(id, (error, userDeleted) => {
+	// 	if(error){
+	// 		return res.status(400).json({
+	// 			ok: false,
+	// 			error
+	// 		})
+	// 	}
+
+	// 	if(!userDeleted) {
+	// 		return res.status(400).json({
+	// 			ok: false,
+	// 			error: {
+	// 				message: "Usuario no encontrado"
+	// 			}
+	// 		})
+	// 	}
+
+	// 	res.json({
+	// 		ok: true,
+	// 		usuario: userDeleted
+	// 	})
+	// })
+
+	// res.json("El usuario " + id + " a sido eliminado");
 });
 
 module.exports = app
