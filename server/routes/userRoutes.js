@@ -41,14 +41,13 @@ app.post("/usuarios", [tokenVerify, adminRolVerify] ,function (req, res) {
 		name, 
 		email, 
 		password, 
-		role } = req.body;
+ 			} = req.body;
 
 
 	let user = new User({
 		name, 
 		email,
-		password: bcrypt.hashSync(password, 10),
-		role
+		password: bcrypt.hashSync(password, 10)
 	})
 
 	user.save((error, userDB) => {
@@ -66,7 +65,7 @@ app.post("/usuarios", [tokenVerify, adminRolVerify] ,function (req, res) {
 	})
 });
 
-app.put("/usuarios/:id", [tokenVerify, adminRolVerify], function (req, res) {
+app.post("/usuarios/:id", [tokenVerify, adminRolVerify], function (req, res) {
 	const id = req.params.id;
 
 	const data = _.pick(req.body, ['name', 'email', 'img', 'role', 'state']);

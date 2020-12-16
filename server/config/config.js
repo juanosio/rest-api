@@ -37,3 +37,10 @@ process.env.EXPIRE_TOKEN = 60 * 60 * 24 * 30
 //         SEED de Autenticacion
 //--------------------------------------
 process.env.SEED_TOKEN = process.env.SEED_TOKEN || "this-is-a-seed-development"
+
+
+//--------------------------------------
+//          GOOGLE AUTENTICATION
+//--------------------------------------
+
+process.env.CLIEND_ID = "290265361884-pg6caeb1nsq1c0bkjnrf3dtm9lngqsbj.apps.googleusercontent.com";
