@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 
 const tokenVerify = (req, res, next) => {
 
-	//Obtener valor Headers
+	//Obtener valor de los Headers
 	let token = req.get('token');
 
 	jwt.verify(token, process.env.SEED_TOKEN, (error, decoded) => {
