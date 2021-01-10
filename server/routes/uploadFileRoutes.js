@@ -24,7 +24,7 @@ function isFormatValid(formatFile) {
 }
 
 function deletePreviusFile(fileName, pathFolder) {
-    let pathImg = path.resolve(__dirname, `../upload/${pathFolder}/${fileName}`)
+    let pathImg = path.resolve(__dirname, `../../uploads/${pathFolder}/${fileName}`)
 
     if(fs.existsSync(pathImg)) {
         fs.unlinkSync(pathImg)
@@ -127,7 +127,7 @@ router.put("/subir/:path/:id", (req, res) => {
     let newFileName = `${id}-${new Date().getMilliseconds()}.${formatFile}`
   
     //Mover el archivo
-    fileImg.mv(`server/upload/${pathDirection}/${newFileName}`, (error) => {
+    fileImg.mv(`uploads/${pathDirection}/${newFileName}`, (error) => {
         
         if (error)
             return res.status(500).json({
@@ -142,5 +142,27 @@ router.put("/subir/:path/:id", (req, res) => {
 
     });
 })
+
+router.get("/view/:path/:img", (req, res) => {
+
+    let pathDirection = req.params.path
+    let fileName = req.params.img
+
+    //Validaciones
+    if(!isPathValid(pathDirection)) {
+        return res.status(400).json({ok: false, error: "El path que envías no es válido"});
+    }
+
+    let pathImg = path.resolve(__dirname, `../../uploads/${pathDirection}/${fileName}`)
+
+    if( fs.existsSync(pathImg) ) {
+        res.sendFile(pathImg)
+    } else {
+        res.sendFile(path.resolve(__dirname, "../assets/no-image.jpg"))
+    }
+
+})
+
+
 
 module.exports = router
