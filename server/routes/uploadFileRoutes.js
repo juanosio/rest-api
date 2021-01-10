@@ -128,7 +128,7 @@ router.put("/subir/:path/:id", (req, res) => {
     let newFileName = `${id}-${new Date().getMilliseconds()}.${formatFile}`
   
     //Mover el archivo
-    fileImg.mv(`uploads/${pathDirection}/${newFileName}`, (error) => {
+    fileImg.mv(path.resolve(__dirname, `../../uploads/${pathDirection}/${newFileName}`), (error) => {
         
         if (error)
             return res.status(500).json({
