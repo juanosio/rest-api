@@ -3,6 +3,7 @@ const fileUpload = require('express-fileupload');
 const User = require("../models/User");
 const Product = require("../models/Product");
 const router = Router();
+let { tokenImgVerify } = require("../middlewares/autentication")
 
 const fs = require("fs")
 const path = require("path")
@@ -143,7 +144,7 @@ router.put("/subir/:path/:id", (req, res) => {
     });
 })
 
-router.get("/view/:path/:img", (req, res) => {
+router.get("/view/:path/:img", tokenImgVerify, (req, res) => {
 
     let pathDirection = req.params.path
     let fileName = req.params.img

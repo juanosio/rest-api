@@ -42,7 +42,30 @@ const adminRolVerify = (req,res, next) => {
 }
 
 
+//=========================================
+//   VERIFICA EL TOKEN DE UNA IMAGEN
+//=========================================
+const tokenImgVerify = (req,res, next) => {
+
+	let token = req.query.token;
+
+	jwt.verify(token, process.env.SEED_TOKEN, (error, decoded) => {
+
+		if(error) {
+			return res.status(401).json({
+				ok: false,
+				error
+			})
+		}
+
+		req.user = decoded.user;
+	
+		next();
+	})
+
+}
 module.exports = {
 	tokenVerify,
-	adminRolVerify
+	adminRolVerify,
+	tokenImgVerify
 }
